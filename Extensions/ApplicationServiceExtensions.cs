@@ -4,7 +4,7 @@ using API.Interfaces;
 using API.Services;
 namespace API.Extensions
 {
-    public class ApplicationServiceExtensions
+    public static class ApplicationServiceExtensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
