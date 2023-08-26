@@ -81,6 +81,11 @@ user : User | undefined;
         if(response) {
           const photo = JSON.parse(response);
           this.member?.photos.push(photo);
+          if(photo.isMain && this.user && this.member) {
+            this.user.photoUrl = photo.url;
+            this.member.photoUrl = photo.url;
+            this.accountService.setCurrentUser(this.user);
+          }
         }
       }
     }
