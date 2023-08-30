@@ -89,6 +89,20 @@ export class MembersService {
   deletePhoto(photoId: number) {
     return this.http.delete(this.baseUrl + 'users/delete-photo/' + photoId);
   }
+
+  addLike(username: string) {
+    return this.http.post(this.baseUrl + 'likes/' + username, {});
+  }
+
+  getLikes(predicate: string, pageNumber: number, pageSize:number) {
+    let params = this.getPaginationHeaders(pageNumber,pageSize);
+
+    params = params.append('predicate',predicate);
+
+    return this.getPaginatedResult<Member[]>(this.baseUrl + 'likes', params);  //likes?predicate used insead of likes/ as we only want normal query string AND we are not going to set up HttpParams for this as we need ONLY one
+  }
+
+
   private getPaginatedResult<T>(url: string, params: HttpParams) {
     const paginatedResult: PaginatedResult<T> = new PaginatedResult<T>;
     return this.http.get<T>(url, { observe: 'response', params }).pipe(
